@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 
 function Todo({ todoID, todoText, isComplete }) {
   const [checkedState, setChecked] = useState();
+  const [disabledState, setDisable] = useState(false);
 
   function updateCheckedState() {
-    setChecked(checked && !checked);
+    setChecked(checked => !checked);
+    if(checked){
+      setDisable(true)
+    }
   }
 
   return (
@@ -16,13 +20,14 @@ function Todo({ todoID, todoText, isComplete }) {
         name="completed"
         id="completeChkBox"
         defaultChecked={isComplete}
+        checked={checkedState}
         onChange={updateCheckedState}
       />
       <label for="completed" if>
         Completed
       </label>
       <button name="editBtn">Edit ToDo</button>
-      <button name="deleteBtn" disabled>
+      <button name="deleteBtn" disabled={disabledState}>
         Delete ToDo
       </button>
     </div>
