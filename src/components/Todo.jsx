@@ -31,6 +31,9 @@ function Todo({ todoID, todoText, isComplete }) {
       <button name="deleteBtn" disabled={disabledState}>
         Delete ToDo
       </button>
+      <button name="saveBtn" style={{ display: "none" }}>
+        Save Edits
+      </button>
     </div>
   );
 }
