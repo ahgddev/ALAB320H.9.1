@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 
 function Todo({ todoID, todoText, isComplete }) {
-  const [checkedState, setChecked] = useState();
-  const [disabledState, setDisable] = useState(false);
+  const [checkedState, setChecked] = useState(isComplete);
+  const [disabledState, setDisable] = useState(true);
+
+  function updateDisabledState(){
+    checkedState == true ?  setDisable(() => true) : setDisable(() => false)
+  }
 
   function updateCheckedState() {
     setChecked(checked => !checked);
-    if(checked){
-      setDisable(true)
-    }
+    updateDisabledState();
   }
 
   return (
@@ -19,7 +21,6 @@ function Todo({ todoID, todoText, isComplete }) {
         type="checkbox"
         name="completed"
         id="completeChkBox"
-        defaultChecked={isComplete}
         checked={checkedState}
         onChange={updateCheckedState}
       />
