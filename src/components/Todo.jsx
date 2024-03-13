@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function Todo({ todoID, todoText, isComplete }) {
   const [checkedState, setChecked] = useState(isComplete);
-  const [disabledState, setDisable] = useState(true);
+  const [disabledState, setDisable] = useState();
 
   function updateDisabledState(){
     checkedState == true ?  setDisable(() => true) : setDisable(() => false)
@@ -28,7 +28,7 @@ function Todo({ todoID, todoText, isComplete }) {
         Completed
       </label>
       <button name="editBtn">Edit ToDo</button>
-      <button name="deleteBtn" disabled={disabledState}>
+      <button name="deleteBtn" disabled={!checkedState}>
         Delete ToDo
       </button>
       <button name="saveBtn" style={{ display: "none" }}>
