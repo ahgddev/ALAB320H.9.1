@@ -18,7 +18,6 @@ function Todo({ todoID, todoText, isComplete }) {
   function updateCheckedState() {
     setChecked(checked => !checked);
     updateDisabledState();
-    updateVisibilityState();
   }
 
   return (
