@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 
 function Todo({ todoID, todoText, isComplete }) {
   const [checkedState, setChecked] = useState(isComplete);
-  const [disabledState, setDisable] = useState();
+  const [disabledState, setDisable] = useState(false);
+  const [visibleState, setVisibility] = useState({display: "none" });
 
   function updateDisabledState(){
-    checkedState == true ?  setDisable(() => true) : setDisable(() => false)
+    setDisable(s => !s)
+  }
+
+  function updateVisibilityState(){
+   setVisibility({display: "inline-block" })
   }
 
   function updateCheckedState() {
     setChecked(checked => !checked);
     updateDisabledState();
+    updateVisibilityState();
   }
 
   return (
@@ -27,12 +33,12 @@ function Todo({ todoID, todoText, isComplete }) {
       <label for="completed" if>
         Completed
       </label>
-      <button name="editBtn">Edit ToDo</button>
-      <button name="deleteBtn" disabled={!checkedState}>
+      <button name="editBtn" onClick={updateVisibilityState}>Edit ToDo</button>
+      <button name="deleteBtn" style={{ display: visibleState ? "inline-block" : "none" }} disabled={!checkedState}>
         Delete ToDo
       </button>
-      <button name="saveBtn" style={{ display: "none" }}>
-        Save Edits
+      <button name="saveBtn" style={visibleState} >
+        Save Edit
       </button>
     </div>
   );
