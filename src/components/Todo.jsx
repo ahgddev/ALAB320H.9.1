@@ -4,6 +4,7 @@ function Todo({ todoID, todoText, isComplete }) {
   const [checkedState, setChecked] = useState(isComplete);
   const [disabledState, setDisable] = useState(false);
   const [visibleState, setVisibility] = useState({display: "none" });
+  const [saveShowState, setSaveShowState] = useState(true)
 
   function updateDisabledState(){
     setDisable(s => !s)
@@ -11,6 +12,7 @@ function Todo({ todoID, todoText, isComplete }) {
 
   function updateVisibilityState(){
    setVisibility({display: "inline-block" })
+   setSaveShowState(false)
   }
 
   function updateCheckedState() {
@@ -33,8 +35,8 @@ function Todo({ todoID, todoText, isComplete }) {
       <label for="completed" if>
         Completed
       </label>
-      <button name="editBtn" onClick={updateVisibilityState}>Edit ToDo</button>
-      <button name="deleteBtn" style={{ display: visibleState ? "inline-block" : "none" }} disabled={!checkedState}>
+      <button name="editBtn" style={{ display: saveShowState ? "inline-block" : "none" }}  onClick={updateVisibilityState}>Edit ToDo</button>
+      <button name="deleteBtn" style={{ display: saveShowState ? "inline-block" : "none" }} disabled={!checkedState}>
         Delete ToDo
       </button>
       <button name="saveBtn" style={visibleState} >
