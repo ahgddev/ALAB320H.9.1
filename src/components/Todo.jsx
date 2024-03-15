@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
+import { useReducer, useState } from "react";
+
+const ACTIONS = {
+SHOW_BUTTON: "show_button",
+DISABLE_BUTTON: "disable_button",
+SHOW_SAVE: "show_save_button",
+}
+
+// function reducer(elState, action){
+//   switch (action.type){
+//     case "set_checked":
+//       return (
+//       elState ? true : false
+//       // disabledState => !disabledState
+//       )
+//     default:
+//       return elState
+//   }
+//   }
 
 function Todo({ todoID, todoText, isComplete }) {
-  const [checkedState, setChecked] = useState(isComplete);
-  const [disabledState, setDisable] = useState(false);
+  const [checkedState, dispatch] = useReducer(checkedState => !checkedState, isComplete);
   const [visibleState, setVisibility] = useState({display: "none" });
   const [saveShowState, setSaveShowState] = useState(true)
 
-  function updateDisabledState(){
-    setDisable(s => !s)
-  }
 
   function updateVisibilityState(){
    setVisibility({ display: saveShowState ? "inline-block" : "none" })
    setSaveShowState(s => !s)
   }
 
-  function updateCheckedState() {
-    setChecked(checked => !checked);
-    updateDisabledState();
-  }
 
   return (
     <div className="todoItem">
@@ -29,7 +39,7 @@ function Todo({ todoID, todoText, isComplete }) {
         name="completed"
         id="completeChkBox"
         checked={checkedState}
-        onChange={updateCheckedState}
+        onChange={dispatch}
       />
       <label for="completed" if>
         Completed
