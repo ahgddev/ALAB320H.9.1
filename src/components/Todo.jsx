@@ -11,8 +11,8 @@ function Todo({ todoID, todoText, isComplete }) {
   }
 
   function updateVisibilityState(){
-   setVisibility({display: "inline-block" })
-   setSaveShowState(false)
+   setVisibility({ display: saveShowState ? "inline-block" : "none" })
+   setSaveShowState(s => !s)
   }
 
   function updateCheckedState() {
@@ -38,7 +38,7 @@ function Todo({ todoID, todoText, isComplete }) {
       <button name="deleteBtn" style={{ display: saveShowState ? "inline-block" : "none" }} disabled={!checkedState}>
         Delete ToDo
       </button>
-      <button name="saveBtn" style={visibleState} >
+      <button name="saveBtn" style={visibleState} onClick={updateVisibilityState} >
         Save Edit
       </button>
     </div>
