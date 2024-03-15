@@ -3,8 +3,7 @@ import { useReducer, useState } from "react";
 const ACTIONS = {
 SHOW_BUTTON: "show_button",
 DISABLE_BUTTON: "disable_button",
-SHOW_SAVE: "show_save_button",
-EDIT_TODO: "edit_todo"
+SHOW_SAVE: "show_save_button"
 }
 
 // function reducer(elState, action){
