@@ -4,7 +4,6 @@ const ACTIONS = {
 SHOW_BUTTON: "show_button",
 DISABLE_BUTTON: "disable_button",
 SHOW_SAVE: "show_save_button",
-DELETE_TODO: "delete_todo",
 EDIT_TODO: "edit_todo"
 }
 
@@ -46,7 +45,7 @@ function Todo({ todoID, todoText, isComplete, deleteFunc}) {
         checked={checkedState}
         onChange={dispatch}
       />
-      <label for="completed" if>
+      <label htmlFor="completed" if>
         Completed
       </label>
       <button name="editBtn" style={{ display: saveShowState ? "inline-block" : "none" }}  onClick={updateVisibilityState}>Edit ToDo</button>

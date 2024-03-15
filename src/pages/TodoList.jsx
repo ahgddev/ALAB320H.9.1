@@ -34,12 +34,8 @@ return ({
 
 function TodoList() {
 const [TodoData, dispatch] = useReducer(reducer, data)
-// const [daata, dispatch] = useReducer(reducer, data)
 const [todoText, setTodoText] = useState('');
 
-function deleteTodo(ID){
-  setTodoData()
-}
 
   return (
     <>
