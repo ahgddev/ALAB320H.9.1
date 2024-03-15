@@ -4,6 +4,8 @@ const ACTIONS = {
 SHOW_BUTTON: "show_button",
 DISABLE_BUTTON: "disable_button",
 SHOW_SAVE: "show_save_button",
+DELETE_TODO: "delete_todo",
+EDIT_TODO: "edit_todo"
 }
 
 // function reducer(elState, action){
@@ -13,16 +15,19 @@ SHOW_SAVE: "show_save_button",
 //       elState ? true : false
 //       // disabledState => !disabledState
 //       )
+//     case "delete_todo":
+//       return(
+//         h
+//       )
 //     default:
 //       return elState
 //   }
 //   }
 
-function Todo({ todoID, todoText, isComplete }) {
+function Todo({ todoID, todoText, isComplete, deleteFunc}) {
   const [checkedState, dispatch] = useReducer(checkedState => !checkedState, isComplete);
   const [visibleState, setVisibility] = useState({display: "none" });
   const [saveShowState, setSaveShowState] = useState(true)
-
 
   function updateVisibilityState(){
    setVisibility({ display: saveShowState ? "inline-block" : "none" })
@@ -45,7 +50,7 @@ function Todo({ todoID, todoText, isComplete }) {
         Completed
       </label>
       <button name="editBtn" style={{ display: saveShowState ? "inline-block" : "none" }}  onClick={updateVisibilityState}>Edit ToDo</button>
-      <button name="deleteBtn" style={{ display: saveShowState ? "inline-block" : "none" }} disabled={!checkedState}>
+      <button name="deleteBtn" style={{ display: saveShowState ? "inline-block" : "none" }} disabled={!checkedState} onClick={() => deleteFunc(todoID)}>
         Delete ToDo
       </button>
       <button name="saveBtn" style={visibleState} onClick={updateVisibilityState} >
