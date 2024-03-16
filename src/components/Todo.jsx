@@ -1,10 +1,10 @@
 import { useReducer, useState } from "react";
 
 const ACTIONS = {
-SHOW_BUTTON: "show_button",
-DISABLE_BUTTON: "disable_button",
-SHOW_SAVE: "show_save_button"
-}
+  SHOW_BUTTON: "show_button",
+  DISABLE_BUTTON: "disable_button",
+  SHOW_SAVE: "show_save_button",
+};
 
 // function reducer(elState, action){
 //   switch (action.type){
@@ -22,17 +22,21 @@ SHOW_SAVE: "show_save_button"
 //   }
 //   }
 
-function Todo({ todoID, todoText, isComplete, deleteFunc}) {
-  const [checkedState, dispatch] = useReducer(checkedState => !checkedState, isComplete);
-  const [visibleState, setVisibility] = useState({display: "none" });
-  const [saveShowState, setSaveShowState] = useState(true)
+function Todo({ todoID, todoText, isComplete, deleteFunc, editFunc }) {
+  const [checkedState, dispatch] = useReducer(
+    (checkedState) => !checkedState,
+    isComplete
+  );
+  const [visibleState, setVisibility] = useState({ display: "none" });
+  const [saveShowState, setSaveShowState] = useState(true);
+  const [editTxt, setEditTxt] = useState("");
 
-  function updateVisibilityState(){
-   setVisibility({ display: saveShowState ? "inline-block" : "none" })
-   setSaveShowState(s => !s)
+  function updateVisibilityState() {
+    setVisibility({ display: saveShowState ? "inline-block" : "none" });
+    setSaveShowState((s) => !s);
   }
 
-
+  // setEditTxt("banana")
   return (
     <div className="todoItem">
       <p id="todoID">{todoID}</p>
@@ -44,14 +48,38 @@ function Todo({ todoID, todoText, isComplete, deleteFunc}) {
         checked={checkedState}
         onChange={dispatch}
       />
-      <label htmlFor="completed" if>
-        Completed
-      </label>
-      <button name="editBtn" style={{ display: saveShowState ? "inline-block" : "none" }}  onClick={updateVisibilityState}>Edit ToDo</button>
-      <button name="deleteBtn" style={{ display: saveShowState ? "inline-block" : "none" }} disabled={!checkedState} onClick={() => deleteFunc(todoID)}>
+      <label htmlFor="completed">Completed</label>
+      <input
+        type="text"
+        name="editTodo"
+        id="editTodo"
+        placeholder={todoText}
+        style={visibleState}
+        onChange={(e) => setEditTxt(e.target.value)}
+      />
+      <button
+        name="editBtn"
+        style={{ display: saveShowState ? "inline-block" : "none" }}
+        onClick={updateVisibilityState}
+      >
+        Edit ToDo
+      </button>
+      <button
+        name="deleteBtn"
+        style={{ display: saveShowState ? "inline-block" : "none" }}
+        disabled={!checkedState}
+        onClick={() => deleteFunc(todoID)}
+      >
         Delete ToDo
       </button>
-      <button name="saveBtn" style={visibleState} onClick={updateVisibilityState} >
+      <button
+        name="saveBtn"
+        style={visibleState}
+        onClick={() => {
+          updateVisibilityState;
+          editFunc(todoID, editTxt);
+        }}
+      >
         Save Edit
       </button>
     </div>

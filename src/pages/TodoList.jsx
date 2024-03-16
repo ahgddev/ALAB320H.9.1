@@ -14,6 +14,8 @@ function reducer(state, action) {
       return state.filter((todos) => todos.id !== action.payload.ID);
     case ACTIONS.ADD_TODO:
       return [newTodo(action.payload.title, action.payload.nextID), ...state];
+    case ACTIONS.EDIT_TODO:
+      return [...state, action.payload.title]
     default:
       return state;
   }
@@ -51,7 +53,7 @@ function TodoList() {
       >
         Add ToDo
       </button>
-      <div id="todoContainer">
+      <div id="todoContainer" key="1" >
         {TodoData.map((todoData) => (
           <Todo
             key={todoData.id}
@@ -62,6 +64,12 @@ function TodoList() {
               dispatch({
                 type: ACTIONS.DELETE_TODO,
                 payload: { ID: todoData.id },
+              });
+            }}
+            editFunc={() => {
+              dispatch({
+                type: ACTIONS.EDIT_TODO,
+                payload: { ID: todoData.id, title: todoData.title},
               });
             }}
           />
