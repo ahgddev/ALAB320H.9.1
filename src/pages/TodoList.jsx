@@ -5,7 +5,6 @@ import { initialState as data } from "../database/data";
 const ACTIONS = {
   DELETE_TODO: "delete_todo",
   ADD_TODO: "add_todo",
-  EDIT_TODO: "edit_todo",
 };
 
 function reducer(state, action) {
@@ -14,8 +13,6 @@ function reducer(state, action) {
       return state.filter((todos) => todos.id !== action.payload.ID);
     case ACTIONS.ADD_TODO:
       return [newTodo(action.payload.title, action.payload.nextID), ...state];
-    case ACTIONS.EDIT_TODO:
-      return [...state, action.payload.title]
     default:
       return state;
   }
@@ -33,6 +30,12 @@ function newTodo(title, nextID) {
 function TodoList() {
   const [TodoData, dispatch] = useReducer(reducer, data);
   const [todoText, setTodoText] = useState("");
+
+  function editTodo(ID, text) {
+    return setTodoText(TodoData.find((todo) => {
+      return todo.id == ID;
+    }).title = text);
+  }
 
   return (
     <>
@@ -53,7 +56,7 @@ function TodoList() {
       >
         Add ToDo
       </button>
-      <div id="todoContainer" key="1" >
+      <div id="todoContainer" key="1">
         {TodoData.map((todoData) => (
           <Todo
             key={todoData.id}
@@ -66,12 +69,7 @@ function TodoList() {
                 payload: { ID: todoData.id },
               });
             }}
-            editFunc={() => {
-              dispatch({
-                type: ACTIONS.EDIT_TODO,
-                payload: { ID: todoData.id, title: todoData.title},
-              });
-            }}
+            editFunc={editTodo}
           />
         ))}
       </div>

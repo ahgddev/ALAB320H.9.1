@@ -36,7 +36,6 @@ function Todo({ todoID, todoText, isComplete, deleteFunc, editFunc }) {
     setSaveShowState((s) => !s);
   }
 
-  // setEditTxt("banana")
   return (
     <div className="todoItem">
       <p id="todoID">{todoID}</p>
